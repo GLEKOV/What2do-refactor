@@ -17,8 +17,4 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
 
 
-
-    db_url: str
-
-
 settings = Settings()
