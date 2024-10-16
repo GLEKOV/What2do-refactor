@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import  BaseModel, PostgresDsn
 
 
@@ -18,6 +18,12 @@ class DatabaseConfig(BaseModel):
     max_overflow: int = 10
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=(".env.template", ".env"), # след переопределяет пред. переменные окр
+        case_sensitive=False,
+        env_nested_delimiter="__", #как мы отделяем вложенные объекты
+        env_prefix="APP_CONFIG__",
+    )
     run: RunConfig = RunConfig()  #аннотация + значение по умолчанию
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
